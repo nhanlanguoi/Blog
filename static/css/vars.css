@@ -1,7 +1,7 @@
 :root {
 	/* Colors */
 	--accent: #E63946;
-	--background: #d87b1e;
+	--background: #1ed8c2;
 	--lightAccent: #00bbff;
 	--lighterAccent: #E6E8E4;
 	--dark: #000000;
@@ -9,7 +9,7 @@
 	--slate: #2F3948;
 
 	--white: #fff;
-	--black: #152030;
+	--black: #0066ff;
 
 	--ink: var(--slate);
 	--paper: var(--background);
@@ -18,6 +18,7 @@
 	 * These fonts are broken out into two separate variables from a previous iteration. I left
 	 * it in because it's nice to be able to split out the heading and body fonts.
 	 */
+	 
 	--accentFont: 'Atkinson Hyperlegible', Georgia, Times, serif;
 	--primaryFont: 'Atkinson Hyperlegible', sans-serif;
 	--codeFont: 'Fira Code', monospace;
