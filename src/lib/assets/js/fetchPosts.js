@@ -15,7 +15,7 @@ const fetchPosts = async ({ offset = 0, limit = postsPerPage, category = '' } = 
 	if (category) {
     sortedPosts = sortedPosts.filter(post => post.categories.includes(category))
 	}
-  
+
 	if (offset) {
 		sortedPosts = sortedPosts.slice(offset)
 	}
