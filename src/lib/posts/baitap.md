@@ -12,7 +12,7 @@ coverHeight: 9
 excerpt: Bài viết này giới thiệu tổng quan về hệ thống phân tán.
 ---
 
-# Author:Nguyễn Thành Nhân - 23010011
+### Author:Nguyễn Thành Nhân - 23010011
 
 # Hệ Thống Phân Tán
 
