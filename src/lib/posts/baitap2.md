@@ -1,7 +1,7 @@
 ---
 title: "Tiến trình & Luồng"
 date: "2025-04-28"
-updated: "2023-04-28"
+updated: "2025-05-5"
 categories:
   - "sveltekit"
   - "markdown"
@@ -44,7 +44,7 @@ excerpt:  Tiến trình & Luồng.
 
 ## 3. Viết ra giấy rồi chụp ảnh, liệt kê các trường hợp nào thì nên dùng thread, trường hợp nào nên dùng process, khi nào thì nên dùng cả hai. Viết dưới dạng table và đưa ví dụ các bài toán
 
-
+![mô tả ảnh](/images/56aacedf-8f20-47eb-8f22-c2f05255fced.jpeg)
 
 
 ## 4. Report, tìm hiểu 1. chatGPT training tập dữ liệu lớn bằng distributed system như thế nào. Đưa link nguồn tài liệu tham khảo từ google
