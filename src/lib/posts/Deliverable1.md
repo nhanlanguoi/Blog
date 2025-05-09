@@ -9,7 +9,7 @@ categories:
 coverImage: "/images/image_copy.png"
 coverWidth: 16
 coverHeight: 9
-excerpt:  Tiến trình & Luồng.
+excerpt:  Deliverable.
 ---
 
 
