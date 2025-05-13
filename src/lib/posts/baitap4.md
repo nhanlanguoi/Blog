@@ -144,7 +144,7 @@ class ChordNode:
         return self.id
 
     def _get_hash(self, key_str):
-        """Tạo hash cho một key (chuỗi) và trả về giá trị int trong không gian ID."""
+       
         if isinstance(key_str, int):
             return key_str % (2**self.m)
         sha1 = hashlib.sha1()
@@ -155,10 +155,7 @@ class ChordNode:
 
 
     def in_interval(self, key_id, start_id, end_id, include_start=False, include_end=True):
-        """
-        Kiểm tra xem key_id có nằm trong khoảng (start_id, end_id] trên vòng tròn Chord không.
-        start_id và end_id là ID của các nút.
-        """
+        
         max_id = 2**self.m
         key_id = key_id % max_id
         start_id = start_id % max_id
@@ -188,7 +185,7 @@ class ChordNode:
 
 
     def find_successor(self, key_id_to_find):
-        """Tìm nút chịu trách nhiệm cho key_id_to_find."""
+       
         if self.predecessor and self.in_interval(key_id_to_find, self.predecessor.id, self.id, include_start=False, include_end=True):
             return self
         if self.in_interval(key_id_to_find, self.id, self.successor.id, include_start=False, include_end=True):
@@ -200,7 +197,7 @@ class ChordNode:
             return n_prime.find_successor(key_id_to_find)
 
     def closest_preceding_finger(self, key_id_to_find):
-        """Tìm nút trong finger table gần nhất và đứng trước key_id_to_find."""
+        
         for i in range(self.m - 1, -1, -1):
             finger_node = self.finger_table[i]
             if finger_node:
@@ -209,14 +206,14 @@ class ChordNode:
         return self
 
     def join(self, existing_node=None):
-        """Nút hiện tại tham gia vào mạng Chord."""
+        
         if existing_node:
             self.successor = existing_node.find_successor(self.id)
             if self.successor:
                  self.successor.notify(self)
 
     def stabilize(self):
-        """Được gọi định kỳ để kiểm tra và cập nhật successor."""
+       
         if not self.successor:
             self.successor = self
             self.predecessor = self
@@ -231,13 +228,13 @@ class ChordNode:
             self.successor.notify(self)
 
     def notify(self, potential_predecessor):
-        """Được gọi bởi potential_predecessor."""
+        
         if self.predecessor is None or \
            self.in_interval(potential_predecessor.id, self.predecessor.id, self.id, include_start=False, include_end=False):
             self.predecessor = potential_predecessor
 
     def fix_fingers(self):
-        """Được gọi định kỳ để làm mới các mục trong finger table."""
+        
         if not self.successor :
             for i in range(self.m):
                 self.finger_table[i] = self
@@ -248,18 +245,18 @@ class ChordNode:
             self.finger_table[i] = self.find_successor(finger_start_id)
 
     def store_value(self, key, value):
-        """Lưu trữ một cặp key-value. Key ở đây là ID đã được hash."""
+        
         target_node = self.find_successor(key)
         target_node.data[key] = value
 
     def retrieve_value(self, key):
-        """Truy xuất giá trị cho một key. Key ở đây là ID đã được hash."""
+       
         target_node = self.find_successor(key)
         return target_node.data.get(key, None)
 
 # --- Helper functions for simulation/testing ---
 def create_ring(node_ids, m):
-    """Tạo một vòng Chord với các nút đã cho và thiết lập successor/predecessor ban đầu."""
+   
     if not node_ids:
         return []
     nodes = sorted([ChordNode(nid, m) for nid in node_ids])
@@ -272,7 +269,7 @@ def create_ring(node_ids, m):
     return nodes
 
 def run_stabilization_rounds(nodes, rounds=3):
-    """Chạy các vòng stabilize và fix_fingers."""
+   
     if not nodes: return
     for r in range(rounds):
         for node in nodes:
