@@ -95,33 +95,6 @@ Chord là một giao thức và thuật toán cho một lớp các bảng băm p
 
 **2. Ví dụ cụ thể về Chord**
 
-Giả sử chúng ta có một vòng tròn Chord với $m=3$, nghĩa là không gian định danh từ 0 đến $2^3 - 1 = 7$.
-Có các nút đang hoạt động với ID: N0, N1, N3, N6.
-
-* **Successors:**
-    * `successor(N0)` là N1
-    * `successor(N1)` là N3
-    * `successor(N3)` là N6
-    * `successor(N6)` là N0 (do vòng tròn)
-
-* **Trách nhiệm lưu trữ khóa (ví dụ):**
-    * Khóa có ID 2 sẽ được lưu trữ tại N3 (vì N3 là nút đầu tiên $\ge 2$).
-    * Khóa có ID 5 sẽ được lưu trữ tại N6.
-    * Khóa có ID 7 sẽ được lưu trữ tại N0.
-
-* **Finger Table (ví dụ cho Nút N0, $m=3$):**
-    * $i=1$: Tìm nút kế tiếp $(0 + 2^{1-1}) \mod 8 = (0 + 1) \mod 8 = 1$. `N0.finger[1].node` = N1.
-    * $i=2$: Tìm nút kế tiếp $(0 + 2^{2-1}) \mod 8 = (0 + 2) \mod 8 = 2$. Nút kế tiếp của 2 là N3. `N0.finger[2].node` = N3.
-    * $i=3$: Tìm nút kế tiếp $(0 + 2^{3-1}) \mod 8 = (0 + 4) \mod 8 = 4$. Nút kế tiếp của 4 là N6. `N0.finger[3].node` = N6.
-
-**Luồng tìm kiếm khóa (ví dụ: tìm khóa K5 từ nút N0):**
-
-1.  N0 muốn tìm `successor(K5)`.
-2.  N0 kiểm tra `finger table`:
-    * `N0.finger[3].node` (N6) có ID là 6. $ID(N0) < ID(K5) \le ID(N6)$ (tức là $0 < 5 \le 6$).
-    * N0 sẽ hỏi N6 để tìm `successor(K5)`.
-3.  N6 kiểm tra xem K5 có nằm giữa `predecessor(N6)` (là N3) và N6 hay không. Có, $3 < 5 \le 6$.
-4.  Vậy N6 là `successor(K5)`.
 
 **3. Code thực nghiệm (Python)**
 
