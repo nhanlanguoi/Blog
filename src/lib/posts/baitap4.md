@@ -17,7 +17,7 @@ excerpt:  Định danh.
 
 
 
-# Bài tập 1: Diễn giải quy trình duyệt một trang web www.motvidu.com
+# Bài tập 1: Diễn giải quy trình duyệt một trang web www.motvidu.com.
 
 Khi bạn gõ "www.motvidu.com" vào thanh địa chỉ của trình duyệt và nhấn Enter, một chuỗi các hoạt động phức tạp sẽ diễn ra để hiển thị trang web đó. Dưới đây là diễn giải chi tiết về quy trình này, bao gồm tra cứu DNS, resolving DNS và caching.
 
