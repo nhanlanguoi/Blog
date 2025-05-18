@@ -13,10 +13,6 @@ excerpt:  Định danh.
 ---
 
 
-
-
-
-
 # Bài tập 1: Diễn giải quy trình duyệt một trang web www.motvidu.com.
 
 # 🕸️ Quy trình duyệt web tổng quát
