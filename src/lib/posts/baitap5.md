@@ -14,7 +14,6 @@ excerpt:  Các kiến trúc của HPT
 
 
 
-
 Chào bạn, dựa trên nội dung tệp PDF bạn cung cấp ("Distributed System notes 7.pdf") và thông tin tìm kiếm được, dưới đây là giải đáp cho các bài tập:
 
 ### Bài tập 1: Tìm hiểu sự tương quan và khác biệt giữa các giao thức HTTP, TCP/IP, UDP, REST, GraphQL, SOAP, AJAX, RPC, gRPC.
@@ -127,23 +126,23 @@ Các giao thức này có thể được sử dụng kết hợp với nhau. Ví
 
 **Suy nghĩ về giải pháp sử dụng hệ phân tán trong bài toán: Tính 10,000,000 số nguyên tố đầu tiên với 16 máy, mỗi máy có 2 core (tổng 32 core). Làm thế nào để có thể đưa ra đáp án đúng và nhanh nhất và có thể sử dụng linh hoạt số nhân, ví dụ 8 core, 10 core, 12 core đều đưa ra được kết quả tương tự.**
 
-Bài toán này yêu cầu tìm N (ở đây là 10,000,000) số nguyên tố đầu tiên. Đây là một bài toán khác với việc tìm các số nguyên tố *trong một khoảng* nhất định (ví dụ từ 1 đến M). Để tìm N số nguyên tố đầu tiên, chúng ta không biết trước cận trên M của khoảng cần xét.
+Bài toán này yêu cầu tìm N (ở đây là 10,000,000) số nguyên tố đầu tiên. Đây là một bài toán khác với việc tìm các số nguyên tố *trong một khoảng* nhất định (ví dụ từ 1 đến $M$). Để tìm N số nguyên tố đầu tiên, chúng ta không biết trước cận trên $M$ của khoảng cần xét.
 
 **Ý tưởng giải pháp sử dụng Sàng Eratosthenes phân tán với MPI:**
 
-Do chúng ta cần tìm *số lượng* số nguyên tố chứ không phải trong một khoảng cố định, thuật toán Sàng Eratosthenes truyền thống (cần biết cận trên N) sẽ cần điều chỉnh.
+Do chúng ta cần tìm *số lượng* số nguyên tố chứ không phải trong một khoảng cố định, thuật toán Sàng Eratosthenes truyền thống (cần biết cận trên $N$) sẽ cần điều chỉnh.
 
-1.  **Ước lượng cận trên (M):**
-    * Cần một ước lượng ban đầu cho giá trị M sao cho khoảng từ 1 đến M chứa ít nhất 10,000,000 số nguyên tố. Có các công thức xấp xỉ số lượng số nguyên tố nhỏ hơn N ($\pi(N) \approx N/\ln(N)$). Từ đó, ta có thể ước lượng $P_n \approx n \ln(n) + n \ln(\ln(n))$ với $P_n$ là số nguyên tố thứ n. Ví dụ, số nguyên tố thứ 10,000,000 sẽ vào khoảng $1.79 \times 10^8$. Nên chọn một cận trên M lớn hơn một chút giá trị này để đảm bảo.
-    * Nếu sau khi sàng trong khoảng [2, M] mà chưa đủ 10,000,000 số nguyên tố, chúng ta cần mở rộng khoảng sàng (tăng M) và tiếp tục.
+1.  **Ước lượng cận trên ($M$):**
+    * Cần một ước lượng ban đầu cho giá trị $M$ sao cho khoảng từ 1 đến $M$ chứa ít nhất 10,000,000 số nguyên tố. Có các công thức xấp xỉ số lượng số nguyên tố nhỏ hơn $N$ ($\pi(N) \approx N/\ln(N)$). Từ đó, ta có thể ước lượng $P_n \approx n \ln(n) + n \ln(\ln(n))$ với $P_n$ là số nguyên tố thứ n. Ví dụ, số nguyên tố thứ 10,000,000 sẽ vào khoảng $1.79 \times 10^8$. Nên chọn một cận trên $M$ lớn hơn một chút giá trị này để đảm bảo.
+    * Nếu sau khi sàng trong khoảng [2, $M$] mà chưa đủ 10,000,000 số nguyên tố, chúng ta cần mở rộng khoảng sàng (tăng $M$) và tiếp tục.
 
 2.  **Phân chia công việc cho Sàng Eratosthenes:**
     * **Tiến trình chủ (Master - rank 0):**
-        * Xác định cận trên M ban đầu cần sàng.
-        * Chia khoảng số [2, M] thành các đoạn con (sub-ranges) gần bằng nhau, mỗi đoạn cho một tiến trình thợ (worker) xử lý. Ví dụ, nếu có P tiến trình, mỗi tiến trình worker sẽ xử lý một đoạn có kích thước khoảng (M-1)/P.
+        * Xác định cận trên $M$ ban đầu cần sàng.
+        * Chia khoảng số [2, $M$] thành các đoạn con (sub-ranges) gần bằng nhau, mỗi đoạn cho một tiến trình thợ (worker) xử lý. Ví dụ, nếu có P tiến trình, mỗi tiến trình worker sẽ xử lý một đoạn có kích thước khoảng ($M$-1)/P.
         * Gửi thông tin về đoạn con (điểm bắt đầu, điểm kết thúc) cho từng tiến trình thợ.
         * **Thu thập kết quả:** Sau khi các thợ sàng xong đoạn của mình, tiến trình chủ sẽ thu thập danh sách các số nguyên tố tìm được từ mỗi thợ.
-        * **Tổng hợp và kiểm tra:** Ghép các danh sách lại, sắp xếp (nếu cần) và đếm tổng số số nguyên tố. Nếu chưa đủ 10,000,000, tăng M và lặp lại quá trình sàng cho khoảng mới (chỉ cần sàng phần mở rộng và cẩn thận với các số đã sàng). Hoặc, một cách tiếp cận khác là mỗi worker tiếp tục sàng các khối số tiếp theo cho đến khi tổng số lượng tìm được đủ.
+        * **Tổng hợp và kiểm tra:** Ghép các danh sách lại, sắp xếp (nếu cần) và đếm tổng số số nguyên tố. Nếu chưa đủ 10,000,000, tăng $M$ và lặp lại quá trình sàng cho khoảng mới (chỉ cần sàng phần mở rộng và cẩn thận với các số đã sàng). Hoặc, một cách tiếp cận khác là mỗi worker tiếp tục sàng các khối số tiếp theo cho đến khi tổng số lượng tìm được đủ.
 
     * **Các tiến trình thợ (Workers - rank 1 đến P-1):**
         * Nhận đoạn số \[start_i, end_i] từ tiến trình chủ.
@@ -155,11 +154,11 @@ Do chúng ta cần tìm *số lượng* số nguyên tố chứ không phải tr
 
 3.  **Cách tìm 10,000,000 số nguyên tố đầu tiên (thay vì trong khoảng cố định):**
     * **Cách 1: Sàng theo từng khối lớn, kiểm tra và mở rộng:**
-        1.  Master chọn một cận trên $M_k$ ban đầu (ví dụ, $2 \times 10^8$).
-        2.  Phân chia đoạn \[2, $M_k$] cho các worker để sàng song song.
+        1.  Master chọn một cận trên ${M}_k$ ban đầu (ví dụ, $2 \times 10^8$).
+        2.  Phân chia đoạn \[2, ${M}_k$] cho các worker để sàng song song.
         3.  Các worker gửi lại số lượng số nguyên tố và các số nguyên tố tìm được trong phần của mình.
         4.  Master tổng hợp lại. Nếu tổng số lượng đã đủ 10,000,000 thì lấy 10,000,000 số đầu tiên và kết thúc.
-        5.  Nếu chưa đủ, Master tăng $M_k$ (ví dụ, $M_{k+1} = M_k + \Delta_M$) và yêu cầu các worker sàng tiếp trong khoảng \[$M_k+1$, $M_{k+1}$]. Quá trình này cần cẩn thận để các worker sử dụng các số nguyên tố đã tìm được ở bước trước để sàng hiệu quả.
+        5.  Nếu chưa đủ, Master tăng ${M}_k$ (ví dụ, ${M}_{k+1} = {M}_k + \Delta M$) và yêu cầu các worker sàng tiếp trong khoảng \[${M}_k+1$, ${M}_{k+1}$]. Quá trình này cần cẩn thận để các worker sử dụng các số nguyên tố đã tìm được ở bước trước để sàng hiệu quả.
     * **Cách 2: Phân phối động các khối nhỏ hơn:**
         1.  Master chia một khoảng số lớn (ví dụ, đến $2 \times 10^9$ hoặc hơn) thành nhiều khối nhỏ (chunks).
         2.  Master gửi từng khối cho các worker còn rảnh.
@@ -169,7 +168,7 @@ Do chúng ta cần tìm *số lượng* số nguyên tố chứ không phải tr
 4.  **Đảm bảo tính đúng đắn và nhanh nhất:**
     * **Đúng đắn:** Thuật toán Sàng Eratosthenes là thuật toán chính xác. Việc chia nhỏ đoạn và tổng hợp kết quả cần được thực hiện cẩn thận để không bỏ sót hoặc tính trùng.
     * **Nhanh nhất:**
-        * Phân chia công việc đều: Chia đoạn số [2, M] một cách hợp lý cho các core.
+        * Phân chia công việc đều: Chia đoạn số [2, $M$] một cách hợp lý cho các core.
         * Giảm thiểu giao tiếp: Giao tiếp giữa các tiến trình (đặc biệt là `MPI_Send`, `MPI_Recv` nhiều lần) tốn thời gian. Cố gắng để mỗi worker làm nhiều việc nhất có thể trước khi gửi kết quả. Sử dụng các hàm tập thể như `MPI_Bcast` (để phát các số nguyên tố cơ sở), `MPI_Gather` hoặc `MPI_Reduce` (để thu thập số lượng/danh sách) có thể hiệu quả hơn.
         * Tối ưu Sàng Eratosthenes cục bộ: Mỗi worker nên thực hiện sàng hiệu quả trên đoạn của mình (ví dụ, chỉ xét các số lẻ, bắt đầu đánh dấu từ bình phương của số nguyên tố).
 
@@ -179,7 +178,7 @@ Do chúng ta cần tìm *số lượng* số nguyên tố chứ không phải tr
         * `mpirun -np 8 ./prime_calculator` (chạy trên 8 core)
         * `mpirun -np 16 ./prime_calculator`
         * `mpirun -np 32 ./prime_calculator`
-    * Bên trong mã nguồn MPI, các hàm `MPI_Comm_size()` và `MPI_Comm_rank()` sẽ tự động cung cấp thông tin về tổng số tiến trình đang chạy và rank của tiến trình hiện tại. Thuật toán phân chia công việc (ví dụ, chia đoạn [2, M]) sẽ dựa trên `size` này để chia đều công việc.
+    * Bên trong mã nguồn MPI, các hàm `MPI_Comm_size()` và `MPI_Comm_rank()` sẽ tự động cung cấp thông tin về tổng số tiến trình đang chạy và rank của tiến trình hiện tại. Thuật toán phân chia công việc (ví dụ, chia đoạn [2, $M$]) sẽ dựa trên `size` này để chia đều công việc.
     * **Hostfile/Machinefile:** Để chạy trên 16 máy, mỗi máy 2 core, bạn cần cấu hình một hostfile cho `mpirun` để nó biết các máy nào có sẵn và số core (slots) trên mỗi máy có thể sử dụng. OpenMPI sẽ cố gắng phân bổ các tiến trình một cách tối ưu dựa trên thông tin này. Ví dụ, nếu hostfile chỉ định 16 máy, mỗi máy có `slots=2`, thì khi chạy với `-np 32`, OpenMPI sẽ cố gắng khởi chạy 2 tiến trình trên mỗi máy. Nếu bạn chạy với `-np 16`, nó có thể chạy 1 tiến trình trên mỗi máy.
     * **Binding processes to cores:** OpenMPI có các tùy chọn để kiểm soát cách các tiến trình MPI được gán (bind) vào các core cụ thể (ví dụ: `--bind-to core`). Điều này có thể quan trọng để đạt hiệu năng tối ưu, tránh việc các tiến trình di chuyển giữa các core hoặc bị tranh chấp tài nguyên cache.
 
@@ -187,8 +186,8 @@ Do chúng ta cần tìm *số lượng* số nguyên tố chứ không phải tr
 
 * `MPI_Init`, `MPI_Finalize`
 * `MPI_Comm_size`, `MPI_Comm_rank`
-* `MPI_Bcast` (để master gửi cận trên M, hoặc các số nguyên tố cơ sở cho các worker)
-* `MPI_Scatter` (để master phân chia các đoạn con của khoảng [2,M] cho các worker)
+* `MPI_Bcast` (để master gửi cận trên $M$, hoặc các số nguyên tố cơ sở cho các worker)
+* `MPI_Scatter` (để master phân chia các đoạn con của khoảng [2,$M$] cho các worker)
 * `MPI_Gather` (để các worker gửi danh sách số nguyên tố cục bộ của chúng về master) hoặc `MPI_Gatherv` (nếu số lượng số nguyên tố mỗi worker tìm được khác nhau nhiều).
 * `MPI_Reduce` (với `MPI_SUM` để master tính tổng số lượng số nguyên tố mà các worker đã tìm được, hoặc với `MPI_PROD` để kiểm tra xem tất cả đã hoàn thành một giai đoạn chưa).
 * `MPI_Send`, `MPI_Recv` (cho việc giao tiếp linh hoạt hơn nếu cần, ví dụ master gửi các khối công việc động).
