@@ -1,5 +1,5 @@
 ---
-title: "A Markdown post with a Svelte component"
+title: "Ôn tập cuối kỳ"
 date: "2023-05-26"
 updated: "2023-05-26"
 categories:
@@ -9,7 +9,7 @@ categories:
 coverImage: "/images/ontapcuoiky.png"
 coverWidth: 16
 coverHeight: 9
-excerpt: This post demonstrates how to include a Svelte component in a Markdown post.
+excerpt: Ôn tập
 ---
 
 
