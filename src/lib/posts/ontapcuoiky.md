@@ -1,7 +1,7 @@
 ---
 title: "Ôn tập cuối kỳ"
-date: "2023-05-26"
-updated: "2023-05-26"
+date: "2025-05-26"
+updated: "2025-05-26"
 categories:
   - "sveltekit"
   - "markdown"
