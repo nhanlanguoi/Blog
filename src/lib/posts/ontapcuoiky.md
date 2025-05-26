@@ -148,16 +148,15 @@ Hệ phân tán bao gồm các yếu tố cốt lõi sau:
 
 ![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.14.00.png)
 
-- thuật toán Berkeley
+-  thuật toán Berkeley
 ![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.17.02.png)
-
 - thuật toán RBS
 ![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.25.46.png)
--thuật toán lamport
+- thuật toán lamport
 ![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.27.21.png)
--thuật toán Bully
+- thuật toán Bully
 ![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.35.08.png)
--thuật toán Ring
+- thuật toán Ring
 ![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.36.41.png)
 
 
