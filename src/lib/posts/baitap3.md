@@ -1,7 +1,7 @@
 ---
 title: "Trao đổi thông tin"
-date: "2025-11-28"
-updated: "2025-11-5"
+date: "2025-5-11"
+updated: "2025-5-11"
 categories:
   - "sveltekit"
   - "markdown"

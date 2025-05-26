@@ -1,7 +1,7 @@
 ---
 title: "Các kiến trúc HPT"
-date: "2025-18-5" # Lưu ý: Định dạng ngày có thể không hợp lệ (tháng 18?), bạn có thể cần sửa lại.
-updated: "2025-18-5" # Tương tự, kiểm tra lại định dạng ngày.
+date: "2025-5-18" # Lưu ý: Định dạng ngày có thể không hợp lệ (tháng 18?), bạn có thể cần sửa lại.
+updated: "2025-5-18" # Tương tự, kiểm tra lại định dạng ngày.
 categories:
   - "sveltekit"
   - "markdown"
