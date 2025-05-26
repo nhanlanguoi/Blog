@@ -144,7 +144,21 @@ Hệ phân tán bao gồm các yếu tố cốt lõi sau:
 
 ## Câu 8: Chụp và để lên blog các hình của thuật toán Cristian, Berkeley, RBS, Lamport, Bully, Ring
 
+- thuật toán Cristian 
 
+![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.14.00.png)
+
+- thuật toán Berkeley
+![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.17.02.png)
+
+- thuật toán RBS
+![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.25.46.png)
+-thuật toán lamport
+![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.27.21.png)
+-thuật toán Bully
+![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.35.08.png)
+-thuật toán Ring
+![ảnh mô tả](/images/Screenshot_2025-05-26_at_16.36.41.png)
 
 
 ## Câu 9: Kỹ thuật phân tán nào hỗ trợ lập trình thủ tục, lập trình web, hướng đối tượng?
