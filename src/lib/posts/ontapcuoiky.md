@@ -297,11 +297,9 @@ Các gói liên quan đến luồng (threads) trong lập trình có thể thự
 
 ## Câu 17: Nêu các hàm chính trong RPC và giải thích chức năng của nó
 
-- **Client Stub**: Đại diện cho client, gọi hàm từ client và gửi yêu cầu đến server.
-- **Server Stub**: Nhận yêu cầu từ client, giải mã và gọi hàm thực thi trên server.
-- **RPC Runtime**: Xử lý đóng gói (marshalling), gửi dữ liệu qua mạng và nhận dữ liệu phản hồi.
-- **Binding**: Thiết lập kết nối giữa client và server, có thể là tĩnh hoặc động.
-- **Serialization/Deserialization**: Biến đổi dữ liệu và tham số thành định dạng có thể gửi qua mạng và ngược lại.
+- **bind()**: Gán một địa chỉ (IP và port) cho một socket. Phía server RPC sẽ cần điều này để client biết kết nối vào đâu.
+- **listen()**: Cho phép socket lắng nghe các yêu cầu kết nối đến. Server RPC sử dụng hàm này để sẵn sàng nhận kết nối từ client.
+- **accept()**: Chấp nhận một yêu cầu kết nối đến từ client, tạo ra một socket mới cho việc giao tiếp với client đó. Server RPC dùng nó để thiết lập kênh liên lạc riêng với mỗi client.
 
 ## Câu 18: Định nghĩa tiến trình, thread, multithread client, multithread server
 
@@ -330,7 +328,7 @@ Các gói liên quan đến luồng (threads) trong lập trình có thể thự
 
 ## Câu 20: Ảo hóa (Virtualization) là gì, mục đích của ảo hóa trong một hệ phân tán dùng để làm gì?
 
-- **Ảo hóa (Virtualization)** là công nghệ tạo ra các phiên bản ảo của tài nguyên phần cứng như máy chủ, lưu trữ, mạng hoặc hệ điều hành, cho phép nhiều môi trường hoạt động độc lập trên cùng một phần cứng vật lý.
+- **Ảo hóa (Virtualization)** nói một cách đơn giản là share tài nguyên của máy bản để thực hiện một máy ảo chạy hệ điều hành khác hoặc cùng hệ điều hành.
 
 - **Mục đích trong hệ phân tán**:
   - Tăng hiệu quả sử dụng tài nguyên phần cứng.
