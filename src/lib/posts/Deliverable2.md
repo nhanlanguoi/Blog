@@ -1,4 +1,16 @@
-
+---
+title: "Deliverable 2"
+date: "2025-5-28" # Lưu ý: Định dạng ngày có thể không hợp lệ (tháng 18?), bạn có thể cần sửa lại.
+updated: "2025-5-28" # Tương tự, kiểm tra lại định dạng ngày.
+categories:
+  - "sveltekit"
+  - "markdown"
+  - "svelte"
+coverImage: "/images/kientruchpt.png"
+coverWidth: 16
+coverHeight: 9
+excerpt:  Deliverable 2
+---
 
 
 
