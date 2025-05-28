@@ -1,5 +1,5 @@
 ---
-title: "Deliverable 2"
+title: "Deliverable 3"
 date: "2025-5-28" # Lưu ý: Định dạng ngày có thể không hợp lệ (tháng 18?), bạn có thể cần sửa lại.
 updated: "2025-5-28" # Tương tự, kiểm tra lại định dạng ngày.
 categories:
@@ -9,7 +9,7 @@ categories:
 coverImage: "/images/kientruchpt.png"
 coverWidth: 16
 coverHeight: 9
-excerpt:  Deliverable 2
+excerpt:  Deliverable 3
 ---
 
 
